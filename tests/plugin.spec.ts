@@ -117,3 +117,46 @@ describe('verdict-guard on a live turn', () => {
     expect(adapter.requests).toHaveLength(3)
   })
 })
+
+describe('verdict-guard — reading the turn', () => {
+  it('pairs a tool result back to its call name and lets the turn close', async () => {
+    // The result event carries only the call id; the name lives on the
+    // matching tool/call. A broken pairing would read the turn as toolless
+    // and hold an evidenced verdict.
+    const adapter = new MockAdapter([
+      toolCallResponse('c9', 'bash', { command: 'npm test' }),
+      textResponse('Verified.'),
+    ])
+    const ctx = await harness(adapter)
+    const agent = run(ctx)
+    await agent.whenIdle()
+    expect(adapter.requests).toHaveLength(2)
+  })
+
+  it('ignores a tool that does not count as verification', async () => {
+    const adapter = new MockAdapter([
+      toolCallResponse('c9', 'bash', { command: 'touch x' }),
+      textResponse('Done, it works.'),
+      textResponse('Not checked.'),
+    ])
+    const ctx = await harness(adapter, { verifyingTools: ['grep'] })
+    const agent = run(ctx)
+    await agent.whenIdle()
+    // bash is not in the configured verifying set → the verdict is unsupported.
+    expect(adapter.requests).toHaveLength(3)
+  })
+
+  it('spends the session budget across turns, not just within one', async () => {
+    const adapter = new MockAdapter([
+      textResponse('It does not work.'),   // turn 1: held (budget 1/1)
+      textResponse('Withdrawn.'),
+      textResponse('It does not work.'),   // turn 2: budget exhausted → closes
+    ])
+    const ctx = await harness(adapter, { maxInterventionsPerSession: 1 })
+    const agent = run(ctx)
+    await agent.whenIdle()
+    agent.followup(createUserMessage({ content: [{ type: 'text', text: 'again' }], source: { kind: 'user' } }))
+    await agent.whenIdle()
+    expect(adapter.requests).toHaveLength(3)
+  })
+})

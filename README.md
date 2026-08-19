@@ -132,7 +132,7 @@ longer exists. Pin `^0.1.0-rc.8`, or install with `@next`.
 
 ```sh
 npm install
-npm test     # 21 tests: the detector, plus the plugin on a real agent loop
+npm test     # 24 tests: the detector, plus the plugin on a real agent loop
 npm run build
 ```
 
