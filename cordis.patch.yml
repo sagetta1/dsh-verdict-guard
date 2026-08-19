@@ -1,0 +1,5 @@
+# Applied by `dsh plugin add dsh-plugin-verdict-guard`.
+# Every option has a default; see README.md for the full list.
+- insert:
+    - id: verdict-guard
+      name: dsh-plugin-verdict-guard

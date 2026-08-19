@@ -32,9 +32,9 @@
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": "^4.0.1",
-    "@deepseek-ai/dsh-agent": "^0.1.0-rc.8",
-    "@deepseek-ai/dsh-llm": "^0.1.0-rc.8",
-    "@deepseek-ai/dsh-session": "^0.1.0-rc.8",
+    "@deepseek-ai/dsh-agent": ">=0.1.0-rc.8 <0.2.0-0",
+    "@deepseek-ai/dsh-llm": ">=0.1.0-rc.8 <0.2.0-0",
+    "@deepseek-ai/dsh-session": ">=0.1.0-rc.8 <0.2.0-0",
     "@deepseek-ai/schemastery": "^3.18.1"
   },
   "keywords": [
@@ -50,6 +50,7 @@
   "files": [
     "lib/**/*.js",
     "lib/types/**/*.d.ts",
+    "cordis.patch.yml",
     "README.md",
     "LICENSE",
     "examples/**"
@@ -60,5 +61,19 @@
       "default": "./lib/index.js"
     },
     "./package.json": "./package.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sagetta1/dsh-verdict-guard.git"
+  },
+  "homepage": "https://github.com/sagetta1/dsh-verdict-guard#readme",
+  "bugs": {
+    "url": "https://github.com/sagetta1/dsh-verdict-guard/issues"
+  },
+  "author": "Sagit Nabiev <sagit.nabiev@gmail.com>",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
   }
 }
