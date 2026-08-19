@@ -1,0 +1,9 @@
+# A stricter profile layer: two holds per turn, English vocabulary only,
+# and a project-specific verdict phrase added to the built-in list.
+- id: verdict-guard
+  config:
+    locale: en
+    maxInterventionsPerTurn: 2
+    extraVerdictPatterns:
+      - '\bno further action\b'
+      - '\bship it\b'

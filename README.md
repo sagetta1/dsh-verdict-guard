@@ -49,23 +49,24 @@ path can honestly be recalled from earlier in the conversation, a transcript can
 dsh plugin add dsh-plugin-verdict-guard
 ```
 
-Then add one row to your profile's `cordis.patch.yml`
-(`$DSH_HOME/profiles/<profile>/cordis.patch.yml`):
-
-```yaml
-- insert:
-    - id: verdict-guard
-      name: 'dsh-plugin-verdict-guard'
-      config:
-        locale: both
-        requireToolEvidence: true
-        maxInterventionsPerTurn: 1
-```
-
-Verify it composed into the tree:
+That is the whole install. The package declares a `dsh.bundle` manifest, so it
+enters your profile as its own bundle layer with every option at its default —
+no row to write by hand. Verify it composed into the tree:
 
 ```sh
-dsh --profile headless --dump-config | grep -A 5 verdict-guard
+dsh --profile headless --dump-config | grep -A 3 verdict-guard
+```
+
+To change a default, add a row to your profile's own patch layer
+(`$DSH_HOME/profiles/<profile>/cordis.patch.yml`), which is applied after every
+bundle layer:
+
+```yaml
+- id: verdict-guard
+  config:
+    locale: en
+    requireToolEvidence: false
+    maxInterventionsPerTurn: 2
 ```
 
 ## Config
@@ -85,6 +86,16 @@ dsh --profile headless --dump-config | grep -A 5 verdict-guard
 
 An empty list is read as *"not supplied"*, never as *"match nothing"* — so a
 config that fills unset array options with `[]` cannot silently disarm the guard.
+
+## What this is not
+
+It does not verify that a claim is *true* — no oracle, no acceptance criteria,
+no contract. It checks one thing: whether the answer offers anything to check
+at all. A wrong claim with a real command output beside it passes here and is
+caught by the reader; a right claim with nothing beside it is held.
+
+It also holds only **once** per turn by default. It is a speed bump on the way
+out, not a gate you have to satisfy.
 
 ## How it works
 
