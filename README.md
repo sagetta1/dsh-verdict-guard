@@ -1,5 +1,7 @@
 # verdict-guard
 
+English | [中文](README.zh.md)
+
 A native [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) plugin.
 **A turn that states a verdict does not close until the verdict carries something a reader can follow.**
 
