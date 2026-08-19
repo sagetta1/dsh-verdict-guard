@@ -1,0 +1,8 @@
+# verdict-guard: a turn that states a verdict without evidence is steered back.
+- insert:
+    - id: verdict-guard
+      name: 'dsh-plugin-verdict-guard'
+      config:
+        locale: both
+        requireToolEvidence: true
+        maxInterventionsPerTurn: 1
