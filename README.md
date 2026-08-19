@@ -141,6 +141,13 @@ npm run build
 The integration tests drive the real `AgentLoop` with a scripted model adapter,
 so both outcomes — held and closed — are proven without a provider key.
 
+## Who wrote this
+
+Built by Sagit Nabiev while running agents against production systems, where one
+confident unsupported verdict costs a day. If you want something like this built
+for your own harness or agent stack — a gate, a bridge, a plugin — write to
+**founder@perpreconcile.com**.
+
 ## License
 
 MIT

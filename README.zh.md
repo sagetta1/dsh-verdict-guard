@@ -134,6 +134,12 @@ npm run build
 集成测试用脚本化的模型适配器驱动真实的 `AgentLoop`，
 因此两种结果 —— 被拦下与正常结束 —— 都不需要 provider key 就能验证。
 
+## 关于作者
+
+作者 Sagit Nabiev，长期在生产环境里跑 agent —— 一个自信却没有依据的结论会白白吃掉一天，
+这个插件就是从那里来的。如果你想为自己的 harness 或 agent 栈定制类似的东西 ——
+拦截器、桥接层、插件 —— 请写信到 **founder@perpreconcile.com**。
+
 ## 许可
 
 MIT
